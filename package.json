@@ -1,0 +1,31 @@
+{
+  "name": "stellar-commerce-contract",
+  "version": "0.1.0",
+  "private": true,
+  "description": "StellarCommerce - Non-custodial escrow payment system on Stellar",
+  "scripts": {
+    "build:contract": "cargo build --release --target wasm32-unknown-unknown && soroban contract optimize --wasm target/wasm32-unknown-unknown/release/escrow.wasm",
+    "build:sdk": "cd sdk && npm install && npm run build",
+    "build:cli": "cd cli && npm install && npm run build",
+    "build:frontend": "cd frontend && npm install && npm run build",
+    "build:all": "npm run build:contract && npm run build:sdk && npm run build:cli && npm run build:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "test:contract": "cargo test",
+    "lint:frontend": "cd frontend && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Markadrian6399/stellar-commerce-contract.git"
+  },
+  "keywords": [
+    "stellar",
+    "soroban",
+    "escrow",
+    "payments",
+    "usdc",
+    "crypto",
+    "ecommerce"
+  ],
+  "author": "Markadrian6399",
+  "license": "MIT"
+}

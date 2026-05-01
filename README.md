@@ -21,13 +21,26 @@ No intermediary holds the funds. The contract is the escrow.
 ## Repository Structure
 
 ```
-stellar-commerce-sdk/
+stellar-commerce-contract/
 ├── Cargo.toml                  # Soroban workspace
 ├── contracts/
 │   └── escrow/
 │       ├── Cargo.toml
 │       └── src/lib.rs          # Core escrow contract (Rust)
 ├── sdk/
+│   ├── package.json
+│   └── src/index.ts            # TypeScript SDK
+├── cli/
+│   ├── package.json
+│   └── src/index.ts            # `sc` CLI tool
+├── frontend/                   # Next.js web interface
+│   ├── app/                    # Pages (shop, merchant dashboard)
+│   ├── components/             # React components
+│   ├── hooks/                  # Custom hooks (wallet, orders)
+│   └── lib/                    # Stellar SDK helpers
+├── db/
+│   └── schema.sql              # PostgreSQL schema
+└── docs/
 │   ├── package.json
 │   └── src/index.ts            # TypeScript SDK
 ├── cli/
@@ -85,6 +98,9 @@ soroban contract optimize \
 # Install SDK + CLI deps
 cd sdk && npm install && npm run build && cd ..
 cd cli && npm install && npm run build && cd ..
+
+# Install frontend deps (optional)
+cd frontend && npm install && cd ..
 ```
 
 ### 5. Configure environment
@@ -159,6 +175,32 @@ sc status --order 1
 | `refund(buyer, order_id)` | buyer | Return funds |
 | `get_order(order_id)` | none | Read order state |
 | `get_merchant()` | none | Read merchant address |
+
+---
+
+## Frontend Usage
+
+The Next.js frontend provides a complete web interface for buyers and merchants.
+
+### Setup
+
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+# Edit .env.local with your contract addresses
+npm run dev
+```
+
+Open http://localhost:3000
+
+### Features
+
+- **Buyer Interface**: Browse products, add to cart, checkout with USDC via Freighter wallet
+- **Merchant Dashboard**: View orders, release payments, track revenue
+- **Order Tracking**: Real-time escrow status updates
+
+See [frontend/README.md](./frontend/README.md) for detailed documentation.
 
 ---
 
